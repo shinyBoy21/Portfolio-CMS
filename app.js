@@ -6,7 +6,7 @@ const projects = require("./routes/list.js");
 
 const app = express();
 
-app.use(express.static(path.join(__dirname,'public')))
+app.use(express.static(path.join(__dirname, "public")));
 
 //app.use(express.json());
 app.use(
@@ -15,7 +15,7 @@ app.use(
   })
 );
 
-app.use("/admin", admin);
+app.use("/admin", admin.route);
 app.use(projects);
 app.use((req, res, next) => {
   res.status(404).sendFile(path.join(__dirname, "views", "404.html"));

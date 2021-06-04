@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 const route = express.Router();
+const projects = [];
 
 route.get("/add-project", (req, res) => {
   console.log(`in the first middleware`);
@@ -12,9 +13,12 @@ route.get("/add-project", (req, res) => {
 });
 
 route.post("/add-project", (req, res) => {
-  console.log("body:", req.body);
+  projects.push({ title: req.body.title });
+  console.log(projects);
+  //console.log(req.body);
   fs.writeFileSync("outcome.txt", req.body.title);
   res.redirect("/");
 });
 
-module.exports = route;
+exports.route = route;
+exports.projects = projects;
