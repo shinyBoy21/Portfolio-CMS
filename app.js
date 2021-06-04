@@ -1,13 +1,12 @@
-const { static } = require("express");
+const path = require("path");
 const express = require("express");
-const fs = require("fs");
 const PORT = process.env.PORT || 3000;
 const admin = require("./routes/admin");
 const projects = require("./routes/list.js");
 
 const app = express();
 
-app.use(static('views'))
+app.use(express.static(path.join(__dirname,'public')))
 
 //app.use(express.json());
 app.use(
@@ -16,10 +15,10 @@ app.use(
   })
 );
 
-app.use('/admin',admin);
+app.use("/admin", admin);
 app.use(projects);
 app.use((req, res, next) => {
-  res.status(404).send("<h1>Page not found</h1>");
+  res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
 });
 
 app.listen(PORT, () => {
