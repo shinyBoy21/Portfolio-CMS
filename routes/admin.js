@@ -8,6 +8,10 @@ const projects = [];
 route.get("/add-project", (req, res) => {
   console.log(`in the first middleware`);
   res.sendFile(path.join(__dirname, "..", "views", "add-project.html"));
+  res.render("add-project", {
+    title: "Add Project",
+    path: "/admin/add-project",
+  });
   //console.log(path.join(__dirname,'../','views','add-product.html'))
   // next();
 });

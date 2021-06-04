@@ -1,0 +1,44 @@
+<%-include('includes/head.ejs')%>
+    <link rel="stylesheet" href="/css/projects.css" />
+    <title><%=title%></title>
+  </head>
+  <body>
+    <%-include('includes/nav.ejs')%>
+
+    <main>
+      <%if (projects.length>0) {%>
+      <p class="main__title">List of all projects...</p>
+
+      <% for (let project of projects) {%>
+      <div class="grid">
+        <article class="card project-item">
+          <header class="card__header">
+            <h1 class="project__title"><%=project.title%></h1>
+          </header>
+          <div class="card__image">
+            <img
+              src="https://raw.githubusercontent.com/shinyBoy21/mockjson/main/kda.JPG"
+              alt="project image"
+            />
+          </div>
+          <div class="card__content">
+            <h2 class="project__year">2021</h2>
+            <p class="project__description">
+              A project to analyze the UI and UX of the KDA webpage
+            </p>
+          </div>
+          <div class="card__actions">
+            <button class="btn">Edit</button>
+            <button class="btn">Remove</button>
+          </div>
+        </article>
+      </div>
+      <%}%> <%} else {%>
+      <h1 class="main__title">No Projects</h1>
+      <%}%>
+
+      <!-- <% for (let project of projects) {%>
+      <p><%=project.title%></p>
+      <%}%> -->
+    </main>
+    <%-include('includes/end.ejs')%>

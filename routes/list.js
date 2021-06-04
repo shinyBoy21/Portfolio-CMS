@@ -8,7 +8,8 @@ const route = express.Router();
 
 route.get("/", (req, res) => {
   console.log(projects);
-  res.sendFile(path.join(__dirname, "../", "views", "projects.html"));
+  //res.sendFile(path.join(__dirname, "../", "views", "projects.html"));
+  res.render("projects", { title: "Projects", projects: projects, path: "/" });
 });
 
 module.exports = route;

@@ -15,10 +15,13 @@ app.use(
   })
 );
 
+app.set("view engine", "ejs");
+app.set("views", "views");
+
 app.use("/admin", admin.route);
 app.use(projects);
 app.use((req, res, next) => {
-  res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
+  res.status(404).render("404", { title: "Page Not Found" });
 });
 
 app.listen(PORT, () => {
