@@ -1,6 +1,6 @@
 const path = require("path");
 const express = require("express");
-const PORT = process.env.PORT || 3500;
+const PORT = process.env.PORT || 3000;
 const admin = require("./routes/admin");
 const projects = require("./routes/list.js");
 const errorController = require("./controllers/error");
