@@ -1,6 +1,5 @@
 const fs = require("fs");
-
-const projects = [];
+const Project = require("../model/projects.js");
 
 exports.getAddProject = (req, res) => {
   console.log(`in the first middleware`);
@@ -14,17 +13,22 @@ exports.getAddProject = (req, res) => {
 };
 
 exports.postProject = (req, res) => {
-  projects.push({ title: req.body.title });
-  console.log(projects);
-  //console.log(req.body);
+  const project = new Project(req.body.title);
+  project.save();
+  //projects.push({ title: req.body.title });
+  console.log(project);
+  console.log(req.body);
   fs.writeFileSync("outcome.txt", req.body.title);
   res.redirect("/");
 };
 
 exports.getProjects = (req, res) => {
-  console.log(projects);
-  //res.sendFile(path.join(__dirname, "../", "views", "projects.html"));
-  res.render("projects", { title: "Projects", projects: projects, path: "/" });
+  Project.fetchAll((projects) => {
+    console.log(projects);
+    res.render("projects", {
+      projects: projects,
+      title: "Projects",
+      path: "/",
+    });
+  });
 };
-
-exports.projects = projects;
