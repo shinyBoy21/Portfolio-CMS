@@ -1,0 +1,27 @@
+<%-include('../includes/head.ejs')%>
+    <link rel="stylesheet" href="/css/add-project.css" />
+    <title><%=title%></title>
+  </head>
+  <body>
+    <%-include('../includes/nav.ejs')%>
+
+    <form class="project-form" action="/admin/<%= editing?"edit":"add"%>-project" method="POST">
+      <div class="form-control">
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title"/ value="<%=editing?project.title:""%>">
+      </div>
+      <div class="form-control">
+        <label for="imgURL">Image URL</label>
+        <input type="text" name="imgURL" id="imgURL" value="<%=editing?project.imgURL:""%>"/>
+      </div>
+      <div class="form-control">
+        <label for="year">Year</label>
+        <input type="number" name="year" id="year" value="<%=editing?project.year:""%>"/>
+      </div>
+      <div class="form-control">
+        <label for="description">Description</label>
+        <textarea name="description" id="description" rows="5"><%=editing?project.description:""%></textarea>
+      </div>
+      <button type="submit"><%if (editing) {%>Update Project<%} else {%>Add Project<%}%></button>
+    </form>
+    <%-include('../includes/end.ejs')%> 
