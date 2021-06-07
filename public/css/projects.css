@@ -137,3 +137,7 @@ main {
 .project__description {
   text-align: center;
 }
+
+.centered {
+  text-align: center;
+}

@@ -8,5 +8,6 @@ const projects = projectsController.projects;
 const route = express.Router();
 
 route.get("/", projectsController.getProjects);
+route.get("/projects/:projectId", projectsController.getAProject);
 
 module.exports = route;

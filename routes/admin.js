@@ -1,13 +1,16 @@
 const express = require("express");
 
 const path = require("path");
-const projectsController = require("../controllers/projects.js");
+const adminController = require("../controllers/admin");
 
 const route = express.Router();
 
-route.get("/add-project", projectsController.getAddProject);
+route.get("/add-project", adminController.getAddProject);
 
-route.post("/add-project", projectsController.postProject);
+route.post("/add-project", adminController.postProject);
+
+route.get("/projects", adminController.getProjects)
+
 
 exports.route = route;
 

@@ -7,14 +7,28 @@ const path = require("path");
 //const projects = [];
 const filePath = path.join(__dirname, "../", "data", "projects.json");
 
+const getProjectFromFile = (cb) => {
+  fs.readFile(filePath, (err, fileContent) => {
+    if (err) {
+      cb([]);
+    } else {
+      cb(JSON.parse(fileContent));
+    }
+  });
+};
+
 class Project {
   //let's then create our constructor function
-  constructor(title) {
+  constructor(title, imgURL, year, description) {
     this.title = title;
+    this.imgURL = imgURL;
+    this.year = year;
+    this.description = description;
   }
   // after this i create an object related to this class
   // we use a save method in our class to save every single project in our array
   save() {
+    this.id = Math.random().toString();
     fs.readFile(filePath, (err, fileContent) => {
       let projects = [];
       if (!err) {
@@ -34,14 +48,22 @@ class Project {
   //"static" key Word helps us to make use we call the "fetchALL" method directly on the CLASS
   //...and not on an instantiated object
 
-  static fetchAll(callback) {
-    fs.readFile(filePath, (err, fileContent) => {
-      if (err) {
-        callback([]);
-      }
-      callback(JSON.parse(fileContent));
-    });
+  static fetchAll(cb) {
+    // fs.readFile(filePath, (err, fileContent) => {
+    //   if (err) {
+    //     callback([]);
+    //   }
+    //   callback(JSON.parse(fileContent));
+    // });
+    getProjectFromFile(cb);
     //return projects;
+  }
+
+  static findById(id, cb) {
+    getProjectFromFile((projects) => {
+      const project = projects.find((p) => p.id === id);
+      cb(project);
+    });
   }
 }
 

@@ -1,9 +1,9 @@
-<%-include('includes/head.ejs')%>
+<%-include('../includes/head.ejs')%>
     <link rel="stylesheet" href="/css/projects.css" />
     <title><%=title%></title>
   </head>
   <body>
-    <%-include('includes/nav.ejs')%>
+    <%-include('../includes/nav.ejs')%>
 
     <main>
       <%if (projects.length > 0) {%>
@@ -15,15 +15,13 @@
           </header>
           <div class="card__image">
             <img
-              src="https://raw.githubusercontent.com/shinyBoy21/mockjson/main/kda.JPG"
-              alt="project image"
+              src="<%=project.imgURL%>"
+              alt="<%=project.title%>"
             />
           </div>
           <div class="card__content">
-            <h2 class="project__year">2021</h2>
-            <p class="project__description">
-              A project to analyze the UI and UX of the KDA webpage
-            </p>
+            <h2 class="project__year"><%=project.year%></h2>
+            <p class="project__description"><%=project.description%></p>
           </div>
           <div class="card__actions">
             <button class="btn">Edit</button>
@@ -36,4 +34,4 @@
         <h1 class="main__title">No Projects</h1>
         <%}%>
     </main>
-    <%-include('includes/end.ejs')%>
+    <%-include('../includes/end.ejs')%>
