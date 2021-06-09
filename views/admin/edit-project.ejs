@@ -22,6 +22,11 @@
         <label for="description">Description</label>
         <textarea name="description" id="description" rows="5"><%=editing?project.description:""%></textarea>
       </div>
+
+      <% if (editing) {%>
+        <input type="hidden" value="<%=project.id%>" name="projectId">
+      <% } %>
+
       <button type="submit"><%if (editing) {%>Update Project<%} else {%>Add Project<%}%></button>
     </form>
     <%-include('../includes/end.ejs')%> 

@@ -18,7 +18,7 @@ exports.postProject = (req, res) => {
   const imgURL = req.body.imgURL;
   const year = req.body.year;
   const description = req.body.description;
-  const project = new Project(title, imgURL, year, description);
+  const project = new Project(null, title, imgURL, year, description);
   project.save();
   //projects.push({ title: req.body.title });
   console.log(project);
@@ -48,17 +48,24 @@ exports.getEditProject = (req, res) => {
 //**************************** */
 
 exports.postEditProject = (req, res) => {
-  const title = req.body.title;
-  const imgURL = req.body.imgURL;
-  const year = req.body.year;
-  const description = req.body.description;
-  const project = new Project(title, imgURL, year, description);
-  project.save();
+  const projectId = req.body.projectId;
+  const updatedTitle = req.body.title;
+  const updatedImgURL = req.body.imgURL;
+  const updatedYear = req.body.year;
+  const updatedDescription = req.body.description;
+  const updatedProject = new Project(
+    projectId,
+    updatedTitle,
+    updatedImgURL,
+    updatedYear,
+    updatedDescription
+  );
+  updatedProject.save();
   //projects.push({ title: req.body.title });
-  console.log(project);
+  console.log(updatedProject);
   console.log(req.body);
   fs.writeFileSync("outcome.txt", req.body.title);
-  res.redirect("/");
+  res.redirect("/admin/projects");
 };
 
 //********************** */

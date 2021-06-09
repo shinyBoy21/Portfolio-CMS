@@ -13,6 +13,6 @@ route.get("/projects", adminController.getProjects);
 
 route.get("/edit-project/:projectId", adminController.getEditProject);
 
-route.post("/edit-project");
+route.post("/edit-project", adminController.postEditProject);
 
 exports.route = route;

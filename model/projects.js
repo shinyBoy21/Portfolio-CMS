@@ -19,7 +19,8 @@ const getProjectFromFile = (cb) => {
 
 class Project {
   //let's then create our constructor function
-  constructor(title, imgURL, year, description) {
+  constructor(id, title, imgURL, year, description) {
+    this.id = id;
     this.title = title;
     this.imgURL = imgURL;
     this.year = year;
@@ -28,20 +29,23 @@ class Project {
   // after this i create an object related to this class
   // we use a save method in our class to save every single project in our array
   save() {
-    this.id = Math.random().toString();
-    fs.readFile(filePath, (err, fileContent) => {
-      let projects = [];
-      if (!err) {
-        //here i'll get 'json' and parse it(take json and gives js array or object thanks to PARSE method)
-        projects = JSON.parse(fileContent);
+    getProjectFromFile((projects) => {
+      if(this.id) {
+        const existingProjectIndex = projects.findIndex(project => project.id === this.id);
+        const updatedProjects=[...projects];
+        updatedProjects[existingProjectIndex]= this;
+        fs.writeFile(filePath, JSON.stringify(updatedProjects), (err) => {
+          console.log(err);
+        });
+      }else {
+        this.id = Math.random().toString();
+        projects.push(this);
+        fs.writeFile(filePath, JSON.stringify(projects), (err) => {
+          console.log(err);
+        });
       }
-      projects.push(this);
-      fs.writeFile(filePath, JSON.stringify(projects), (err) => {
-        console.log(err);
-      });
+     
     });
-
-    //projects.push(this); // refers to "this.title"
   }
 
   // to retrieve all projects, we use a fetch method
@@ -49,14 +53,7 @@ class Project {
   //...and not on an instantiated object
 
   static fetchAll(cb) {
-    // fs.readFile(filePath, (err, fileContent) => {
-    //   if (err) {
-    //     callback([]);
-    //   }
-    //   callback(JSON.parse(fileContent));
-    // });
     getProjectFromFile(cb);
-    //return projects;
   }
 
   static findById(id, cb) {
@@ -68,3 +65,34 @@ class Project {
 }
 
 module.exports = Project;
+
+// getProjectFromFile((projects) => {
+//   projects.push(this);
+//   fs.writeFile(filePath, JSON.stringify(projects), (err) => {
+//     console.log(err);
+//   });
+// });
+// fs.readFile(filePath, (err, fileContent) => {
+//   if (this.id) {
+//     const existingProjectIndex = projects.findIndex(
+//       (project) => project.id === this.id
+//     );
+//     const updatedProjects = [...project];
+//     updatedProjects[existingProjectIndex] = this;
+//     fs.writeFile(filePath, JSON.stringify(updatedProjects), (err) => {
+//       console.log(err);
+//     });
+//   } else {
+//     let projects = [];
+//     this.id = Math.random().toString();
+
+//     if (!err) {
+//       //here i'll get 'json' and parse it(take json and gives js array or object thanks to PARSE method)
+//       projects = JSON.parse(fileContent);
+//     }
+//     projects.push(this);
+//     fs.writeFile(filePath, JSON.stringify(projects), (err) => {
+//       console.log(err);
+//     });
+//   }
+// });
