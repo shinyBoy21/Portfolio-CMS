@@ -15,4 +15,6 @@ route.get("/edit-project/:projectId", adminController.getEditProject);
 
 route.post("/edit-project", adminController.postEditProject);
 
+route.post("/delete-project", adminController.postDeleteProject);
+
 exports.route = route;

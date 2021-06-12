@@ -80,3 +80,9 @@ exports.getProjects = (req, res) => {
     });
   });
 };
+
+exports.postDeleteProject = (req, res) => {
+  const projectId = req.body.projectId;
+  Project.deleteById(projectId);
+  res.redirect("/admin/projects");
+};

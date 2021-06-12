@@ -30,27 +30,39 @@ class Project {
   // we use a save method in our class to save every single project in our array
   save() {
     getProjectFromFile((projects) => {
-      if(this.id) {
-        const existingProjectIndex = projects.findIndex(project => project.id === this.id);
-        const updatedProjects=[...projects];
-        updatedProjects[existingProjectIndex]= this;
+      if (this.id) {
+        const existingProjectIndex = projects.findIndex(
+          (project) => project.id === this.id
+        );
+        const updatedProjects = [...projects];
+        updatedProjects[existingProjectIndex] = this;
         fs.writeFile(filePath, JSON.stringify(updatedProjects), (err) => {
           console.log(err);
         });
-      }else {
+      } else {
         this.id = Math.random().toString();
         projects.push(this);
         fs.writeFile(filePath, JSON.stringify(projects), (err) => {
           console.log(err);
         });
       }
-     
     });
   }
 
   // to retrieve all projects, we use a fetch method
   //"static" key Word helps us to make use we call the "fetchALL" method directly on the CLASS
   //...and not on an instantiated object
+
+  static deleteById(id) {
+    getProjectFromFile((projects) => {
+      const updatedProject = projects.filter((p) => p.id !== id);
+      fs.writeFile(filePath, JSON.stringify(updatedProject), (err) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    });
+  }
 
   static fetchAll(cb) {
     getProjectFromFile(cb);
